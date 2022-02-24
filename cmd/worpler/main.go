@@ -16,7 +16,7 @@ func main() {
 	fmt.Printf("finding all (5-letter) words matching %q, exluding %q\n", *pattern, *exclude)
 	t0 := time.Now()
 	//matches := worpler.Find(*pattern, *exclude, *include)
-	matches := worpler.FindV2(*pattern, *exclude)
+	matches := worpler.FindV2(worpler.WordlistAnswers5, *pattern, *exclude)
 	fmt.Printf("found %d matches in %s\n", len(matches), time.Since(t0))
 	for _, m := range matches {
 		fmt.Printf("%q\n", m)

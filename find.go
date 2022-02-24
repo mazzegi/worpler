@@ -3,6 +3,8 @@ package worpler
 import (
 	"strings"
 	"unicode"
+
+	"github.com/mazzegi/worpler/wordlist"
 )
 
 func match(word string, pattern string, exclude string, include string) bool {
@@ -35,7 +37,7 @@ func match(word string, pattern string, exclude string, include string) bool {
 // Find is case-insensitive.
 func Find(pattern string, exclude string, include string) []string {
 	var matches []string
-	for _, word := range wordlist {
+	for _, word := range wordlist5 {
 		if match(strings.ToLower(word), strings.ToLower(pattern), strings.ToLower(exclude), strings.ToLower(include)) {
 			matches = append(matches, word)
 		}
@@ -111,11 +113,41 @@ func matchV2(word string, pattern string, exclude string) bool {
 // Find finds all words matching pattern, exluding those, which contain chars of "exclude"
 // Uppercase letters in pattern means, that they are already at their designation position
 // Lowercase letters in pattern means, that they occur in the answer, but on a different position
-func FindV2(pattern string, exclude string) []string {
+func FindV2(list []string, pattern string, exclude string) []string {
 	var matches []string
-	for _, word := range wordlistAnswers {
+	//for _, word := range wordlistAnswers5 {
+	for _, word := range list {
 		if matchV2(word, pattern, exclude) {
 			matches = append(matches, word)
+		}
+	}
+	return matches
+}
+
+//
+func matchSpebee(word string, letters string) bool {
+	rword := []rune(letters)
+	for _, rl := range word {
+		ir := strings.IndexRune(string(letters), rl)
+		if ir < 0 {
+			return false
+		}
+		rword[ir] = '_'
+	}
+	return true
+}
+
+//
+func FindSpebee(letters string) []string {
+	wl, _ := wordlist.NewEN()
+	letters = strings.ToLower(letters)
+	var matches []string
+	for n := 4; n < len(letters); n++ {
+		words := wl.AllOfSize(n)
+		for _, word := range words {
+			if matchSpebee(strings.ToLower(word), letters) {
+				matches = append(matches, word)
+			}
 		}
 	}
 	return matches

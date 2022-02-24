@@ -1,6 +1,6 @@
 package worpler
 
-var wordlistAnswers = []string{
+var WordlistAnswers5 = []string{
 	"aback",
 	"abase",
 	"abate",

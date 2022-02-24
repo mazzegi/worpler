@@ -1,6 +1,6 @@
 package worpler
 
-var wordlist = []string{
+var wordlist5 = []string{
 	// allowed guesses
 	"aahed",
 	"aalii",
