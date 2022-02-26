@@ -1,10 +1,9 @@
 package worpler
 
 import (
+	"sort"
 	"strings"
 	"unicode"
-
-	"github.com/mazzegi/worpler/wordlist"
 )
 
 func match(word string, pattern string, exclude string, include string) bool {
@@ -121,34 +120,10 @@ func FindV2(list []string, pattern string, exclude string) []string {
 			matches = append(matches, word)
 		}
 	}
-	return matches
-}
 
-//
-func matchSpebee(word string, letters string) bool {
-	rword := []rune(letters)
-	for _, rl := range word {
-		ir := strings.IndexRune(string(letters), rl)
-		if ir < 0 {
-			return false
-		}
-		rword[ir] = '_'
-	}
-	return true
-}
-
-//
-func FindSpebee(letters string) []string {
-	wl, _ := wordlist.NewEN()
-	letters = strings.ToLower(letters)
-	var matches []string
-	for n := 4; n < len(letters); n++ {
-		words := wl.AllOfSize(n)
-		for _, word := range words {
-			if matchSpebee(strings.ToLower(word), letters) {
-				matches = append(matches, word)
-			}
-		}
-	}
+	ranks := rankLetters(matches)
+	sort.Slice(matches, func(i, j int) bool {
+		return rankWord(matches[i], ranks) < rankWord(matches[j], ranks)
+	})
 	return matches
 }

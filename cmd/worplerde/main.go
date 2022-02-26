@@ -9,21 +9,6 @@ import (
 )
 
 func main() {
-	// fmt.Printf("loading words ...\n")
-	// t0 := time.Now()
-	// wl, _ := wordlist.NewDE()
-	// list := wl.List(5)
-
-	// f, _ := os.Create("tmp.txt")
-	// sort.Strings(list)
-	// defer f.Close()
-	// fmt.Fprintf(f, "var WordlistAnswers5_DE = []string{\n")
-	// for _, s := range list {
-	// 	fmt.Fprintf(f, `"%s",`+"\n", strings.ToLower(s))
-	// }
-	// fmt.Fprintf(f, "}\n")
-
-	// fmt.Printf("loaded in %s (%d words)\n", time.Since(t0), len(list))
 
 	pattern := flag.String("p", "*****", "pattern to match (defaults to five wildcards)")
 	exclude := flag.String("e", "", "chars to exclude")
